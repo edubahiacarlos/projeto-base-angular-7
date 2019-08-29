@@ -1,0 +1,77 @@
+<div class="col-md-12">
+  <button
+    *ngIf="controleAcesso('criar')"
+    (click)="abrirCadastro('perfil/novo')"
+    class="btn btn-outline-primary"
+  >
+    <i class="material-icons">
+      group_add
+    </i>
+    Criar novo Perfil  
+  </button>
+  <br>
+  <br>
+
+  <h4 class="">
+    <span class="badge badge-primary badge-pill col-md-12">Lista de Perfis</span>
+  </h4>
+
+  <div class="table-responsive col-md-12">
+    <table class="table table-hover table-striped table-bordered">
+      <thead class="table-info">
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col" class="text-center">Ação</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let perfil of recursos">
+        <tr>
+          <td>{{ perfil.nome }}</td>
+          <td class="text-center">
+            <button
+            *ngIf="controleAcesso('atualizar')"
+              (click)="abrirEdicao('editar',perfil.id)"
+              type="button"
+              class="btn btn-outline-warning">
+              <i class="material-icons">
+                edit
+              </i>
+            </button>
+            {{ " " }}
+            <button
+              *ngIf="controleAcesso('apagar')"
+              (click)="confirmacaoExclusao(perfil)"
+              type="button"
+              class="btn btn-outline-danger">
+              <i class="material-icons">
+                  delete_forever
+              </i>  
+            </button>
+            {{ ' ' }}
+            <button
+              *ngIf="controleAcesso('visualizar')"
+              (click)="abrirVisualizacao('visualizar',perfil.id)"
+              type="button"
+              class="btn btn-outline-info">
+              <i class="material-icons">
+                pageview
+              </i>  
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tr *ngIf="recursos?.length === 0" class="text-center" style="background: rgb(220,220,220);">
+        <td colspan="3">Nenhum registro encontrado.</td>
+      </tr>
+      <tr
+        *ngIf="recursos?.length > 0"
+        style="background: rgb(220,220,220);">
+        <td colspan="3">Total de Usuários: {{ config.totalItens }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <app-paginacao *ngIf="recursos?.length > 0" [config]="config"></app-paginacao>
+</div>
+
+

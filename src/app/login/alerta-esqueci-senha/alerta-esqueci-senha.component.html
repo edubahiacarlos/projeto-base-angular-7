@@ -1,0 +1,81 @@
+<div style="text-align: center" class="alert-info card-header border-primary">
+  <h5 class="modal-title">
+    <strong>
+      Recuperação de Senha
+    </strong>
+      
+    <button
+      type="button"
+      (click)="fechar()"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close">
+        <span aria-hidden="true">
+          &times;
+        </span>
+        <span class="sr-only">Carregando...</span>
+    </button>
+  </h5>
+</div>
+  
+<div *ngIf="!aguarde" class="modal-body card-body border-primary">
+  <div class="col-md-12 text-center">
+    <form [formGroup]="formulario" class="needs-validation" novalidate>
+        <mat-form-field class="col-md-12">
+            <mat-label>Email: <span class="asterisk-vermelho">*</span></mat-label>
+            <input
+              formControlName="email"
+              type="email"
+              maxlength="100"
+              name="email"
+              class="material-icons"
+              matInput
+              placeholder="Email:"
+            >
+            <span matSuffix>
+              <exibicao-validacao [campo]="'email'" [form]="formulario" [mostrar]="'imagem'"></exibicao-validacao>
+            </span>
+            <mat-hint align="start">
+              <exibicao-validacao [campo]="'email'" [form]="formulario" [mostrar]="'mensagem'"></exibicao-validacao>
+            </mat-hint>
+            <mat-hint align="end">{{ formulario.get('email').value ? formulario.get('email').value?.length : 0 }} / 60</mat-hint>
+          </mat-form-field>
+
+          <div *ngIf="mensagemErro" class="alert alert-danger col-md-12">
+            {{mensagemErro}}
+          </div>
+          
+      <div
+        class="col-md=12"
+        style="background: rgb(220,220,220); margin-top: 20px; padding: 7px; height: 50px"
+      >
+        <button
+          [disabled]="!formulario.valid"
+          (click)="salvar()"
+          class="btn btn-outline-success bn-lg "
+        >
+          Enviar
+        </button> 
+        {{ ' ' }}
+        <button
+          (click)="fechar()"
+          class="btn btn-outline-secondary bn-lg "
+        >
+          Fechar
+        </button> 
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="aguarde" class="col-md-12 text-center" style="margin-top: 20px; margin-bottom: 20px">
+  <div style="width: 3rem; height: 3rem;" class="spinner-border text-primary" role="status">
+    <span class="sr-only">Carregando...</span>
+  </div>
+  <br>
+  Aguarde...
+</div>
+
+<div class="card-footer text-center border-primary alert-primary">
+  <h4>&copy; 2019 edubahia.carlos</h4>
+</div>

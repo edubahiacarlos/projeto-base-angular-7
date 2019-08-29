@@ -1,0 +1,48 @@
+<div style="text-align: center" class="alert-info card-header border-primary">
+  <h5 class="modal-title">
+    <strong>
+      Atenção
+    </strong>
+    
+    <button
+      (click)="acaoModal('nao')"
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </h5>
+</div>
+
+<div class="modal-body card-body border-primary text-center">
+
+  <div class="col-md-12">
+      {{ mensagem }}
+  </div>
+
+  <div
+    class="col-md-12"
+    style="background: rgb(220,220,220); margin-top: 20px; padding: 7px; height: 50px"
+  >
+      <button
+        (click)="acaoModal('sim')"
+        type="button"
+        class="btn btn-outline-danger"
+        data-dismiss="modal">
+          Sim
+      </button>
+      {{' '}}
+      <button
+        (click)="acaoModal('nao')"
+        type="button"
+        class="btn btn-outline-secondary">
+          Não
+      </button>
+  </div>
+</div>
+
+<div class="card-footer text-center border-primary alert-primary">
+  <h4>&copy; 2019 edubahia.carlos</h4>
+</div>
+  

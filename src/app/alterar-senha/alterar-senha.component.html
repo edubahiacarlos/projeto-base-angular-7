@@ -1,0 +1,102 @@
+<form [formGroup]="form" class="needs-validation text-center col-md-12" (ngSubmit)="salvar()" novalidate>
+
+   
+  <h4>
+    <span class='badge badge-primary badge-pill col-md-12'>Alterar Senha</span>
+  </h4>
+    
+  <div class="col-md-12">
+    <mat-form-field class="col-md-6">
+      <mat-label>Email: <span class="asterisk-vermelho">*</span></mat-label>
+      <input
+        formControlName="email"
+        type="email"
+        maxlength="66"
+        name="email"
+        class="material-icons"
+        matInput
+        placeholder="Email:"
+      >
+      <span matSuffix>
+        <exibicao-validacao [campo]="'email'" [form]="form" [mostrar]="'imagem'"></exibicao-validacao>
+      </span>
+      <mat-hint align="start">
+        <exibicao-validacao [campo]="'email'" [form]="form" [mostrar]="'mensagem'"></exibicao-validacao>
+      </mat-hint>
+      <mat-hint align="end">{{ form.get('email').value ? form.get('email').value?.length : 0 }} / 60</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-12">
+    <mat-form-field class="col-md-6">
+      <mat-label>Senha: <span class="asterisk-vermelho">*</span></mat-label>
+      <input
+        formControlName="password"
+        type="password"
+        maxlength="40"
+        name="password"
+        class="material-icons"
+        matInput
+        placeholder="Senha:"
+      >
+      <span matSuffix>
+        <exibicao-validacao [campo]="'password'" [form]="form" [mostrar]="'imagem'"></exibicao-validacao>
+      </span>
+      <mat-hint align="start">
+        <exibicao-validacao [campo]="'password'" [form]="form" [mostrar]="'mensagem'"></exibicao-validacao>
+      </mat-hint>
+      <mat-hint align="end">{{ form.get('password').value ? form.get('password').value?.length : 0 }} / 40</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-12">
+    <mat-form-field class="col-md-6">
+      <mat-label>Confirmação da Senha: <span class="asterisk-vermelho">*</span></mat-label>
+      <input
+        formControlName="password_confirmation"
+        type="password"
+        maxlength="40"
+        name="password_confirmation"
+        class="material-icons"
+        matInput
+        placeholder="Confirmação da Senha:"
+      >
+      <span matSuffix>
+        <exibicao-validacao [campo]="'password_confirmation'" [form]="form" [mostrar]="'imagem'"></exibicao-validacao>
+      </span>
+      <mat-hint align="start">
+        <exibicao-validacao [campo]="'password_confirmation'" [form]="form" [mostrar]="'mensagem'"></exibicao-validacao>
+      </mat-hint>
+      <mat-hint align="end">{{ form.get('password_confirmation').value ? form.get('password_confirmation').value?.length : 0 }} / 40</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="mensagemErro" class="alert alert-danger col-md-12">
+    <span class="col-md-6">{{ mensagemErro }}</span>
+  </div>
+  
+  <div class="col-md-12 text-center" style="background: rgb(220,220,220); margin-top: 20px; padding: 24px; height: 80px">
+    <div class="col-md-12">
+      <button
+        [disabled]="form.invalid"
+        type="submit"
+        class="btn btn-outline-success"
+      >
+        <i class="material-icons">
+          save
+        </i>
+        Salvar
+      </button>
+      {{ " " }}
+      <button
+        (click)="limparFormulario()"
+        class="btn btn-outline-secondary">
+        <i class="material-icons">
+          clear_all
+        </i>
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+</form>

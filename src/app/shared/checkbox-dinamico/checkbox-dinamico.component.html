@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <section style="margin-top: 20px" class="col-md-12">
+    <div formArrayName="acoesPossiveis" >
+      <mat-checkbox
+        (change)="abc(acao, i)"
+        *ngFor="let acao of lista, let i = index"
+        [formControlName]="i"
+        class="md-checkbox checkbox-margin"
+      >
+        {{ acao.nome }}
+      </mat-checkbox>
+    </div>
+  </section>
+</form>

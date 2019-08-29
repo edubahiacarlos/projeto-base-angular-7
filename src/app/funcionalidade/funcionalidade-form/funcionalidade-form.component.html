@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="needs-validation row" novalidate>
+  <div class="col-md-12">
+    <button 
+    (click)="irPara(['/funcionalidade'])"
+    class="btn btn-outline-primary">
+      <i class="material-icons">
+      keyboard_backspace
+      </i>
+      Voltar
+    </button> 
+  </div>
+
+  <h4 class="col-md-12" style="margin-top: 20px">
+    <span class="badge badge-primary badge-pill col-md-12">Cadastro de Funcionalidade</span>
+  </h4>
+
+  <div class="col-md-12">
+    <mat-form-field class="col-md-6">
+      <mat-label>Nome: <span class="asterisk-vermelho">*</span></mat-label>
+      <input
+        formControlName="nome"
+        type="text"
+        maxlength="60"
+        name="nome"
+        class="material-icons"
+        matInput
+        placeholder="Nome:"
+      >
+      <span matSuffix>
+        <exibicao-validacao [campo]="'nome'" [form]="form" [mostrar]="'imagem'"></exibicao-validacao>
+      </span>
+      <mat-hint align="start">
+        <exibicao-validacao [campo]="'nome'" [form]="form" [mostrar]="'mensagem'"></exibicao-validacao>
+      </mat-hint>
+      <mat-hint align="end">{{ form.get('nome').value ? form.get('nome').value?.length : 0 }} / 40</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <h4 class="col-md-12" style="margin-top: 20px">
+    <span class="badge badge-primary badge-pill col-md-12">Ações</span>
+  </h4>
+
+  <div class="col-md-12">
+      <app-checkbox-dinamico
+        *ngIf="acoes" 
+        (testeApp)="escolherAcao($event)"
+        [desabiliar]="form.disabled"
+        [listaSelecionada]="funcionalidade.acoesSelecionadas"
+        [lista]="acoes">
+      </app-checkbox-dinamico>
+
+
+    <!--
+    <section class="col-md-12">
+      <div formArrayName="acoesPossiveis" *ngFor="let acao of acoes, let i = index">
+        <mat-checkbox (change)="escolheAcao(i, acao)" [formControlName]="i" class="md-checkbox">{{ acao.nome }}</mat-checkbox><br>
+      </div>
+    </section>
+    -->
+  </div>
+
+  <div *ngIf="form.enabled" class="col-md-12 text-center" style="background: rgb(220,220,220); margin-top: 20px; padding: 24px; height: 80px">
+    <div class="col-md-12">
+      <button
+        [disabled]="form.invalid"
+        type="submit"
+        class="btn btn-outline-success">
+          <i class="material-icons">
+            save
+          </i>
+          Salvar
+      </button>
+      {{ " " }}
+      <button
+        *ngIf="!form.get('id').value"
+        (click)="limparFormulario(form)"
+        class="btn btn-outline-secondary">
+        <i class="material-icons">
+          clear_all
+        </i>
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+</form>

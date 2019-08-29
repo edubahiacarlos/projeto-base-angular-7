@@ -1,0 +1,77 @@
+<div class="login-form">
+  <form [formGroup]="formulario" class="needs-validation" novalidate>
+    <div class="form-row">
+      <div class="avatar alert">
+        <i class="material-icons">
+          &#xE7FF;
+        </i>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <span class="sr-only sr-only-focusable">Email</span>
+      <div class="col-md-12" [ngClass]="{ 'mb-5': verificarErros('email') }">
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid alert alert-danger': verificarErros('email'),
+            'is-valid alert alert -success': !verificarErros('email')
+          }"
+          id="email"
+          placeholder="Email"
+        />
+        <div class="invalid-tooltip">
+          <span *ngIf="verificarErros('email')['required']"
+            >Campo Obrigatório</span
+          >
+          <span *ngIf="verificarErros('email')['email']"
+            >Insira um email válido</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <span class="sr-only">Senha </span>
+      <div class="col-md-12" [ngClass]="{ 'mb-5': verificarErros('password') }">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid alert alert-danger': verificarErros('password'),
+            'is-valid alert alert -success': !verificarErros('password')
+          }"
+          id="password"
+          placeholder="Senha"
+        />
+        <div class="invalid-tooltip">
+          <span *ngIf="verificarErros('password')['required']"
+            >Campo Obrigatório</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-block btn-lg">
+      Mostrar Senha
+    </button>
+
+    <button
+      [disabled]="!formulario.valid"
+      (click)="logar()"
+      class="btn btn-success btn-block btn-lg"
+    >
+      Logar
+    </button>
+
+    <div class="form-group small clearfix">
+      <label class="checkbox-inline">
+        <a href="javascript:void(0)" (click)="esqueciSenha()"  class="forgot-link">Esqueci minha senha</a>
+      </label>
+    </div> 
+
+  </form>
+</div>

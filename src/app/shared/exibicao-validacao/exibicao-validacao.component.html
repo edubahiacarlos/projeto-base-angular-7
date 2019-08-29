@@ -1,0 +1,20 @@
+
+<p *ngIf="mostrar === 'mensagem'" style="color: red">
+  <span>{{ verificaErros(campo, form, 'required') }}</span>
+  <span>{{ verificaErros(campo, form, 'minlength') }}</span>
+  <span>{{ verificaErros(campo, form, 'maxlength') }} </span>
+  <span>{{ verificaErros(campo, form, 'email') }}</span>
+  <span>{{ verificaErros(campo, form, 'cpfInvalido') }}</span>
+  <span>{{ verificaErros(campo, form, 'equalTo') }}</span>
+</p>
+
+<i *ngIf="mostrar === 'imagem'" class="material-icons">
+    <span *ngIf="!campoValido(campo, form)" style="color: red" >clear</span>
+    <span *ngIf="campoValido(campo, form)" style="color: green">done</span>
+</i>
+
+<!--
+<button (click)="teste(form)" class="btn btn-primary">
+  Teste
+</button>
+-->

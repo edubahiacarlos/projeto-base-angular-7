@@ -1,0 +1,104 @@
+<nav
+  [hidden]="!mostrarMenu"
+  class="navbar navbar-expand-lg navbar-dark bg-primary"
+  dropdown
+  #dropdown="bs-dropdown"
+>
+  <a class="navbar-brand" href="#">Estoque Doméstico</a>
+
+  <button
+    id="button-basic"
+    dropdownToggle
+    type="button"
+    
+    class="navbar-toggler"
+    aria-controls="navbarNav"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" *dropdownMenu id="navbarNav">
+    <ul class="navbar-nav">
+      <li routerLinkActive="active" class="nav-item ">
+        <a [routerLink]="['/inicio']" class="nav-link" >
+          <i class="material-icons medium"><label>home</label></i>
+          Início
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav">
+    <div class="btn-group" dropdown>
+      <button
+        id="button-basic"
+        dropdownToggle
+        type="button"
+        class="btn btn-primary dropdown-toggle"
+        aria-controls="dropdown-basic"
+      >
+        <i class="material-icons medium"><label>account_circle</label></i>
+        {{ usuarioLogado?.name }} {{ usuarioLogado?.sobrenome }}
+      </button>
+
+      <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+        aria-labelledby="button-basic"
+      >
+        <li *ngIf="botao.usuario" role="menuitem">
+          <a [routerLink]="['/usuario']" class="dropdown-item">
+            <i class="material-icons medium"><label>account_circle</label></i>
+            Usuário
+          </a>
+        </li>
+        <li *ngIf="botao.perfil" role="menuitem">
+          <button [routerLink]="['/perfil']" class="dropdown-item">
+            <i class="material-icons medium">speaker_group</i>  
+            Perfil
+          </button>
+        </li>
+        <li *ngIf="botao.funcionalidade" role="menuitem">
+          <button [routerLink]="['/funcionalidade']" class="dropdown-item">
+            <i class="material-icons medium">speaker_group</i>  
+            Funcionalidades
+          </button>
+        </li>
+        <li *ngIf="botao.funcionalidade" role="menuitem">
+            <button [routerLink]="['/acao']" class="dropdown-item">
+              <i class="material-icons medium">speaker_group</i>  
+              Ações
+            </button>
+          </li>
+        <li role="menuitem">
+          <button (click)="sair()" class="dropdown-item">
+            <i class="material-icons medium" style=" color: red">close</i>
+            Sair
+          </button>
+        </li>
+      </ul>
+    </div>
+  </ul>
+</nav>
+
+<br>
+
+<div class="container-fluid">
+  <div class="" [ngClass]="{'card border-primary': mostrarMenu}">
+    <div *ngIf="mostrarMenu"  class="card-header border-primary alert alert-primary text-center ">
+      <h3>
+        <strong>Sistema de Estoque Doméstico</strong>
+      </h3>
+    </div>
+    <div class="card-body border-primary">
+        <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="mostrarMenu"  class="card-footer text-center border-primary mb-3 alert alert-primary">
+      <h4>&copy; 2019 edubahia.carlos</h4>
+    </div>
+  </div>  
+</div>
+
+

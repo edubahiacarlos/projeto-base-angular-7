@@ -1,3 +1,4 @@
+import { ErroServidorService } from './../servico/erroServidor.service';
 import { FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/login/login.service';
 import { CrudService } from './crud-service.class';
@@ -6,13 +7,17 @@ import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 
 export class CrudComponenteForm {
+    erroService: ErroServidorService;
 
     constructor(protected crudService: CrudService<any>,
                 protected location: Location,
                 protected alerta: AlertaService,
                 protected loginService: LoginService,
                 protected rota: Router) {
+
+        this.erroService = new ErroServidorService(this.alerta, this.loginService, this.rota);
     }
+
 
     irPara(url: string[]) {
         this.rota.navigate(url);
@@ -30,11 +35,7 @@ export class CrudComponenteForm {
             this.irPara([this.rota.url.split('/')[1]]);
             return true;
         }, erro => {
-            this.alerta.fechar();
-            if (erro.status === 401) {
-                this.loginService.erro401();
-            }
-            this.alerta.abrirModalErros(erro.data.mensagem);
+            this.erroService.erro(erro);
         });
 
         return recursoPromise;

@@ -10,6 +10,6 @@ import { Usuario } from '../model/usuario.class';
 })
 export class UsuarioService extends CrudService<Usuario> {
   constructor(protected http: HttpClient, protected loginService: LoginService) {
-    super(http, environment.API + 'api/usuarios', loginService);
+    super(http, environment.API + 'api/v1/usuario', loginService);
   }
 }

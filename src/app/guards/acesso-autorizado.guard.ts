@@ -1,3 +1,4 @@
+import { ErroServidorService } from './../shared/servico/erroServidor.service';
 import { AlertaService } from './../shared/alertas/alerta.service';
 import { LoginService } from '../login/login.service';
 import { Injectable } from '@angular/core';
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AcessoAutorizadoGuard implements CanActivate {
 
-  private constructor(private loginService: LoginService, private rota: Router, private alerta: AlertaService){
+  private constructor(private loginService: LoginService, private erroService: ErroServidorService){
   }
 
   canActivate(
@@ -20,12 +21,7 @@ export class AcessoAutorizadoGuard implements CanActivate {
       autorizacaoPromise.then( response => {
         return response;
       }, (erro) => {
-        if (erro.status === 401) {
-          this.loginService.erro401();
-          return false;
-        }
-
-        this.rota.navigate(['/inicio']);
+        this.erroService.erro(erro);
         return false;
       });
 

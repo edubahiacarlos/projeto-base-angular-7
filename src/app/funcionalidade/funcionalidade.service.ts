@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class FuncionalidadeService extends CrudService<Funcionalidade> {
 
   constructor(protected http: HttpClient, protected loginService: LoginService, private rota: Router) {
-    super(http, environment.API + 'api/funcionalidades', loginService);
+    super(http, environment.API + 'api/v1/funcionalidade', loginService);
   }
 
   cadastraListaFuncionalidades() {
@@ -32,10 +32,12 @@ export class FuncionalidadeService extends CrudService<Funcionalidade> {
       novasFuncionalidades.push(funcionalidade);
     });
 
-    return this.http.post(environment.API + 'api/listafuncionalidades', {data: novasFuncionalidades }, this.getCabecalho()).pipe(take(1));
+    return this.http.post(environment.API + 'api/v1/listafuncionalidades',
+                          {data: novasFuncionalidades },
+                          this.getCabecalho()).pipe(take(1));
   }
 
   funcionalidadesComAcoes() {
-    return this.http.get<Funcionalidade[]>(environment.API + 'api/funcionalidadescomacoes', this.getCabecalho()).pipe(take(1));
+    return this.http.get<Funcionalidade[]>(environment.API + 'api/v1/funcionalidadescomacoes', this.getCabecalho()).pipe(take(1));
   }
 }

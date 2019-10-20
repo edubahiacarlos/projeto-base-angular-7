@@ -7,6 +7,7 @@ import { AlertaConfirmacaoService } from './../shared/alertas/alerta-confirmacao
 import { LoginService } from './../login/login.service';
 import { AlertaService } from './../shared/alertas/alerta.service';
 import { Component, OnInit, Input, OnDestroy, AfterContentInit } from '@angular/core';
+import { ErroServidorService } from '../shared/servico/erroServidor.service';
 
 @Component({
   selector: 'app-funcionalidade',
@@ -18,6 +19,7 @@ export class FuncionalidadeComponent extends CrudComponenteLista implements OnIn
   constructor(protected funcionalidadeService: FuncionalidadeService,
               protected alerta: AlertaService,
               protected loginService: LoginService,
+              private erroServidor: ErroServidorService,
               protected alertaConfirmacaoService: AlertaConfirmacaoService,
               protected rotaAtiva: ActivatedRoute,
               protected rota: Router) {
@@ -38,10 +40,8 @@ export class FuncionalidadeComponent extends CrudComponenteLista implements OnIn
     this.alerta.abrirModalAguarde('Aguarde...');
     this.funcionalidadeService.cadastraListaFuncionalidades().subscribe( () => {
       this.carregar();
-    }, erro => {
-      if (erro.status === 401) {
-        this.loginService.erro401();
-      }
+    }, data => {
+      this.erroServidor.erro(data);
     });
   }
 }

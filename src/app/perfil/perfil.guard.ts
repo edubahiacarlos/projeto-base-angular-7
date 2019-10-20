@@ -1,3 +1,4 @@
+import { ErroServidorService } from './../shared/servico/erroServidor.service';
 import { LoginService } from './../login/login.service';
 import { AlertaService } from './../shared/alertas/alerta.service';
 import { Perfil } from './../model/perfil.class';
@@ -11,7 +12,7 @@ import { PerfilService } from './perfil.service';
 })
 export class PerfilGuard implements Resolve<Perfil> {
 
-  constructor(private loginService: LoginService, private perfilService: PerfilService, private alerta: AlertaService) {
+  constructor(private erroService: ErroServidorService, private perfilService: PerfilService, private alerta: AlertaService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,
@@ -26,10 +27,7 @@ export class PerfilGuard implements Resolve<Perfil> {
         this.alerta.fechar();
         return response;
       }, erro => {
-        this.alerta.fechar();
-        if (erro.status === 401) {
-          this.loginService.erro401();
-        }
+        this.erroService.erro(erro);
       });
 
       return perfilPromise;

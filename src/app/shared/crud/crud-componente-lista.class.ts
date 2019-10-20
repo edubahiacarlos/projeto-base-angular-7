@@ -1,10 +1,10 @@
+import { ErroServidorService } from './../servico/erroServidor.service';
 import { LoginService } from '../../login/login.service';
 import { CrudService } from './crud-service.class';
 import { AlertaConfirmacaoService } from '../alertas/alerta-confirmacao/alerta-confirmacao.service';
 import { AlertaService } from '../alertas/alerta.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Paginacao } from '../paginacao/paginacao.class';
-import { isFunction } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 export class CrudComponenteLista {
     config: Paginacao = new Paginacao();
@@ -12,6 +12,7 @@ export class CrudComponenteLista {
     paginacao$: any;
     modalConfirmacaoEvento: any;
     recursos: any = [];
+    erroService: ErroServidorService;
 
     constructor(protected crudService: CrudService<any>,
                 protected alerta: AlertaService,
@@ -19,6 +20,8 @@ export class CrudComponenteLista {
                 protected alertaConfirmacaoService: AlertaConfirmacaoService,
                 protected rotaAtiva: ActivatedRoute,
                 protected rota: Router) {
+
+        this.erroService = new ErroServidorService(this.alerta, this.loginService, this.rota, )
     }
 
     public carregar() {
@@ -32,7 +35,7 @@ export class CrudComponenteLista {
             this.alerta.fechar();
             return this.recursos;
         }, data => {
-
+            this.erroService.erro(data);
         });
     }
 
@@ -61,8 +64,7 @@ export class CrudComponenteLista {
         excluirPromise.then( () => {
             this.carregar();
         }, erro => {
-            this.alerta.fechar();
-            this.alerta.abrirModalErros('Erro ao tentar excluir');
+            this.erroService.erro(erro);
         });
 
         return excluirPromise;

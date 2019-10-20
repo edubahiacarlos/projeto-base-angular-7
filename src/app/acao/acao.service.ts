@@ -12,10 +12,10 @@ import { Injectable } from '@angular/core';
 export class AcaoService extends CrudService<Acao> {
 
   constructor(protected http: HttpClient, protected loginService: LoginService) { 
-    super(http, environment.API + 'api/acoes', loginService);
+    super(http, environment.API + 'api/v1/acao', loginService);
   }
 
   dadosAcaoDominio() {
-    return this.http.get<Acao[]>(environment.API + 'api/acaodadosdominio', this.getCabecalho()).pipe(take(1));
+    return this.http.get<Acao[]>(environment.API + 'api/v1/acaodadosdominio', this.getCabecalho()).pipe(take(1));
   }
 }

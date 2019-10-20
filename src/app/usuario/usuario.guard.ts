@@ -1,3 +1,4 @@
+import { ErroServidorService } from './../shared/servico/erroServidor.service';
 import { LoginService } from './../login/login.service';
 import { AlertaService } from './../shared/alertas/alerta.service';
 import { UsuarioService } from './usuario.service';
@@ -11,7 +12,9 @@ import { Observable, of } from 'rxjs';
 })
 export class UsuarioGuard implements Resolve<Usuario> {
 
-  constructor(private loginService: LoginService, private usuarioService: UsuarioService, private alerta: AlertaService) {
+  constructor(private erroService: ErroServidorService,
+              private usuarioService: UsuarioService,
+              private alerta: AlertaService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,
@@ -26,10 +29,7 @@ export class UsuarioGuard implements Resolve<Usuario> {
         this.alerta.fechar();
         return response;
       }, erro => {
-        this.alerta.fechar();
-        if (erro.status === 401) {
-          this.loginService.erro401();
-        }
+       this.erroService.erro(erro);
       });
 
       return cursoPromise;

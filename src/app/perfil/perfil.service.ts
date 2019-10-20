@@ -12,11 +12,11 @@ import { Injectable } from '@angular/core';
 export class PerfilService extends CrudService<Perfil> {
 
   constructor(protected http: HttpClient, protected loginService: LoginService) { 
-    super(http, environment.API + 'api/perfis', loginService);
+    super(http, environment.API + 'api/v1/perfil', loginService);
   }
 
   dadosPerfilDominio() {
-    return this.http.get<any[]>(environment.API + 'api/perfildadosdominio', this.getCabecalho()).pipe(take(1));
+    return this.http.get<any[]>(environment.API + 'api/v1/perfildadosdominio', this.getCabecalho()).pipe(take(1));
   }
 
   buscaAcoesPossiveis(): any {

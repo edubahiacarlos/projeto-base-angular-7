@@ -1,8 +1,8 @@
-import { AlertaService } from './shared/alertas/alerta.service';
 import { Router } from '@angular/router';
 import { LoginService } from './login/login.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Usuario } from './model/usuario.class';
+import { ErroServidorService } from './shared/servico/erroServidor.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,9 @@ export class AppComponent implements OnInit {
   listaControleAcesso: [];
   botao: {};
 
-  constructor(private loginService: LoginService, private rota: Router, private alerta: AlertaService){
+  constructor(private loginService: LoginService,
+              private rota: Router,
+              private erroService: ErroServidorService){
   }
 
   ngOnInit(): void {
@@ -69,9 +71,7 @@ export class AppComponent implements OnInit {
         this.rota.navigate(['/login']);
       },
       error => {
-        if (error.status === 401) {
-          this.loginService.erro401();
-        }
+        this.erroService.erro(error);
       }
     );
   }

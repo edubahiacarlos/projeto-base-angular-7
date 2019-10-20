@@ -59,17 +59,10 @@ export class LoginService {
 
   estaAutorizado(funcionalidade: string) {
     const cabecalho = { headers: { Authorization: this.token() } };
-    return this.http.get<boolean>(environment.API + 'api/autorizacao/' + funcionalidade, cabecalho).pipe(take(1));
+    return this.http.get<boolean>(environment.API + 'api/v1/autorizacao/' + funcionalidade, cabecalho).pipe(take(1));
   }
 
   trocarSenha(dados: {}) {
     return this.http.post<any>(environment.API + 'api/auth/alterarsenha', dados).pipe(take(1));
-  }
-
-  erro401() {
-    this.removerItensSessao();
-    this.estaLogado();
-    this.alerta.abrirModalErros('Você não está logado. Você foi redirecionado para tela de login');
-    this.rota.navigate(['/login']);
   }
 }

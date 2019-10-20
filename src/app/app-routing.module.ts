@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InicioComponent } from './inicio/inicio.component';
 import { AcessoAutenticadoGuard } from './guards/acesso-autenticado.guard';
-import { CanActivate } from '@angular/router/src/utils/preactivation';
 
 const routes: Routes = [
   { data: {'title': 'Login', 'mapeado': false },

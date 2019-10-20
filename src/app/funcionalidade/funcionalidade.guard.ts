@@ -1,3 +1,4 @@
+import { ErroServidorService } from './../shared/servico/erroServidor.service';
 import { LoginService } from './../login/login.service';
 import { FuncionalidadeService } from './funcionalidade.service';
 import { AlertaService } from './../shared/alertas/alerta.service';
@@ -12,7 +13,9 @@ import { reject } from 'q';
 })
 export class FuncionalidadeGuard implements Resolve<Funcionalidade> {
 
-  constructor(private loginService: LoginService, private alerta: AlertaService, private funcionalidadeService: FuncionalidadeService) {
+  constructor(private erroService: ErroServidorService,
+              private alerta: AlertaService,
+              private funcionalidadeService: FuncionalidadeService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,
@@ -27,10 +30,7 @@ export class FuncionalidadeGuard implements Resolve<Funcionalidade> {
         this.alerta.fechar();
         return response;
       }, erro => {
-        this.alerta.fechar();
-        if (erro.status === 401) {
-          this.loginService.erro401();
-        }
+        this.erroService.erro(erro);
       });
 
       return funcionalidadePromise;
